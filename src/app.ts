@@ -1,7 +1,11 @@
 import cookieParser from "cookie-parser";
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import cors from 'cors';
 import config from "./config";
+import  httpStatus  from "http-status";
+import { prisma } from "./lib/prisma";
+import bcrypt from "bcryptjs";
+import { userRoutes } from "./modules/user/user.routes";
 
 const app:Application=express();
 
@@ -14,4 +18,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
 
-export default app;
+app.use('/api/users',userRoutes)
+
+
+export default app; 
