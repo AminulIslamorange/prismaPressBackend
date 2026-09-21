@@ -6,6 +6,7 @@ import  httpStatus  from "http-status";
 import { prisma } from "./lib/prisma";
 import bcrypt from "bcryptjs";
 import { userRoutes } from "./modules/user/user.routes";
+import { authRoutes } from "./modules/auth/auth.routes";
 
 const app:Application=express();
 
@@ -18,7 +19,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
 
-app.use('/api/users',userRoutes)
+app.use('/api/users',userRoutes);
+app.use('/api/auth',authRoutes)
 
 
 export default app; 
