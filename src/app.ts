@@ -7,6 +7,7 @@ import { prisma } from "./lib/prisma";
 import bcrypt from "bcryptjs";
 import { userRoutes } from "./modules/user/user.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { postRoutes } from "./modules/post/post.route";
 
 const app:Application=express();
 
@@ -20,7 +21,9 @@ app.use(cookieParser());
 
 
 app.use('/api/users',userRoutes);
-app.use('/api/auth',authRoutes)
+app.use('/api/auth',authRoutes);
+app.use('/api/posts',postRoutes)
+// app.use('/api/comments')
 
 
 export default app; 
