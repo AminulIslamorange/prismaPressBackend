@@ -19,25 +19,25 @@ router.get("/", postController.getAllPosts);
 //     postController.getPostsStats
 // );
 
-// router.get(
-//     "/my-posts",
-//     auth(Role.USER, Role.ADMIN, Role.AUTHOR),
-//     postController.getMyPosts
-// );
+router.get(
+    "/my-posts",
+    auth(Role.USER, Role.ADMIN, Role.AUTHOR),
+    postController.getMyPosts
+);
 
-// router.get("/:postId", postController.getPostById);
+router.get("/:postId", postController.getPostById);
 
-// router.patch(
-//     "/:postId", 
-//     auth(Role.USER, Role.ADMIN, Role.AUTHOR), 
-//     postController.updatePost
-// );
+router.patch(
+    "/:postId", 
+    auth(Role.USER, Role.ADMIN, Role.AUTHOR), 
+    postController.updatePost
+);
 
-// router.delete(
-//     "/:postId", 
-//     auth(Role.USER, Role.ADMIN, Role.AUTHOR), 
-//     postController.deletePost
-// );
+router.delete(
+    "/:postId", 
+    auth(Role.USER, Role.ADMIN, Role.AUTHOR), 
+    postController.deletePost
+);
 
 
 

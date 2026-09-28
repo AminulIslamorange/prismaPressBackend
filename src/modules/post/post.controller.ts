@@ -32,14 +32,82 @@ const  getAllPosts=catchAsync(async(req:Request,res:Response,next:NextFunction)=
 
 })
 
+const getPostById=catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
+    const postId=req.params.postId;
+    if(!postId){
+        throw new Error ("Post id required")
+    }
+    const result=await postService.getPostById(postId as string)
+
+
+    sendResponse(res,{
+        success:true,
+        statuscode:httpStatus.OK,
+        message:"Post retrive successfully",
+        data:result
+    })
+
+})
+
+
+const getMyPosts=catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
+    const authorId=req.user?.id;
+    const result=await postService.getMyPosts(authorId as string)
+
+
+    sendResponse(res,{
+        success:true,
+        statuscode:httpStatus.OK,
+        message:"My Post retrieved successfully",
+        data:result
+    })
+
+})
+
+const updatePost =catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
+    const authorId=req.user?.id;
+    const isAmin=req.user?.role ==="ADMIN";
+    const postId=req.params.postId;
+    const payload=req.body;
+    const result=await postService.updatePost(postId as string,payload,authorId as string,isAmin)
+
+
+    sendResponse(res,{
+        success:true,
+        statuscode:httpStatus.OK,
+        message:" Post updated successfully",
+        data:result
+    })
+
+})
+const deletePost = catchAsync(async (req : Request, res : Response, next : NextFunction) => {
+    const authorId = req.user?.id
+    const isAdmin = req.user?.role === "ADMIN";
+
+    const postId = req.params.postId;
+    if (!postId) {
+        throw new Error("Post Id Required In Params")
+    }
+
+    await postService.deletePost(postId as string, authorId as string, isAdmin)
+
+    sendResponse(res, {
+        success: true,
+        statuscode: httpStatus.OK,
+        message: "Post deleted successfully",
+        data: null
+    })
+})
+
+
 
 
 export const postController = {
     createPost,
     getAllPosts,
-    // getPostById,
-    // updatePost,
-    // deletePost,
+    getPostById,
+    updatePost,
+    deletePost,
     // getPostsStats,
-    // getMyPosts
+    getMyPosts
 }
